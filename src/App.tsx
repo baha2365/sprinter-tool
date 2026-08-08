@@ -49,9 +49,10 @@ export default function App() {
   });
 
   useEffect(() => {
-  audio.loadGunSound('/sounds/gun.mp3');
-  // Load once on mount; loadGunSound is stable and guards against re-fetching.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    pose.load();
+    audio.loadGunSound('/sounds/gun.mp3');
+    // Load once on mount; loadGunSound is stable and guards against re-fetching.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
 
   const clearPrepInterval = useCallback(() => {
