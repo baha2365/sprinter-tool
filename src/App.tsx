@@ -184,6 +184,7 @@ export default function App() {
             cameraError={camera.error}
             onRequestCamera={camera.start}
             detectorStatus={pose.status}
+            onRetryDetector={pose.load}
             volume={audio.volume}
             onVolumeChange={audio.setVolume}
             onTestSound={audio.testSound}
