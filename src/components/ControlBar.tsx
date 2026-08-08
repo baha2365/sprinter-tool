@@ -6,6 +6,7 @@ interface ControlBarProps {
   cameraError: string | null;
   onRequestCamera: () => void;
   detectorStatus: DetectorStatus;
+  onRetryDetector: () => void;
   volume: number;
   onVolumeChange: (value: number) => void;
   onTestSound: () => void;
@@ -17,6 +18,7 @@ export function ControlBar({
   cameraError,
   onRequestCamera,
   detectorStatus,
+  onRetryDetector,
   volume,
   onVolumeChange,
   onTestSound,
@@ -24,6 +26,7 @@ export function ControlBar({
 }: ControlBarProps) {
   const cameraReady = cameraStatus === 'granted';
   const detectorReady = detectorStatus === 'ready';
+  const detectorFailed = detectorStatus === 'error';
   const canStart = cameraReady && detectorReady;
 
   return (
@@ -48,6 +51,15 @@ export function ControlBar({
           {detectorStatus === 'error' && 'Failed to load'}
         </span>
       </div>
+
+      {detectorFailed && (
+        <button
+          onClick={onRetryDetector}
+          className="w-full py-3 rounded-xl bg-graphite-800 hover:bg-graphite-700 border border-track/30 text-track font-semibold transition-colors"
+        >
+          Retry loading body tracker
+        </button>
+      )}
 
       {!cameraReady && (
         <button
