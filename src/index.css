@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Timing-strip tick marks, echoing a photo-finish film strip. Used along
+   the top/bottom edges of the camera viewfinder. */
+.ticks-bar {
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(143, 163, 173, 0.55) 0px,
+    rgba(143, 163, 173, 0.55) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+}
+
+/* Warm LED-style glow for the running/frozen timer readout. */
+.timer-glow {
+  text-shadow: 0 0 28px rgba(255, 74, 46, 0.55), 0 0 6px rgba(255, 122, 92, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
