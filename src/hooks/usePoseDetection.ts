@@ -103,6 +103,15 @@ export function usePoseDetection({ videoRef, onCrossing, active }: UsePoseDetect
       await tf.ready();
       const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, {
         modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
+        // Bundled locally (public/models/movenet-lightning/) instead of
+        // fetching from Google's CDN at runtime. This is what actually
+        // fixes ERR_QUIC_PROTOCOL_ERROR / "Failed to fetch" model-load
+        // failures — those come from the CDN request itself, not from
+        // anything in this app, and a self-hosted copy never makes that
+        // request at all. It also means the model loads instantly with
+        // zero network dependency, which matters at a track with flaky
+        // wifi/cellular.
+        modelUrl: '/models/movenet-lightning/movenet-lightning.json',
         // The model's own cross-frame smoothing filter trades responsiveness
         // for steadiness — great for a still subject, but it visibly lags
         // behind a sprinter. We do our own lighter-weight smoothing above
