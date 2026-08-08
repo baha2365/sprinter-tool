@@ -23,8 +23,14 @@ export function useCamera() {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: { ideal: 'environment' },
-          width: { ideal: 1280 },
-          height: { ideal: 720 },
+          // Lower than "full HD" on purpose: every frame has to be
+          // preprocessed before the pose model can run on it, and a
+          // smaller frame means more inferences per second — which is
+          // what actually determines whether a fast sprinter gets caught.
+          // Raise this if your device handles the model comfortably and
+          // you want a sharper preview.
+          width: { ideal: 960 },
+          height: { ideal: 540 },
           frameRate: { ideal: 30 },
         },
         audio: false,
